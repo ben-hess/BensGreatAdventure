@@ -1,0 +1,2 @@
+language = "csharp"
+run = "mcs BensGreatAdventure/*.cs -out:BensGreatAdventure.exe && mono BensGreatAdventure.exe"
