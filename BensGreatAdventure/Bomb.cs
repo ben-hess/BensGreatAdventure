@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BensGreatAdventure
 {
-    public class Knockback : ITileController
+    public class Bomb : ITileController
     {
         int Sign(int n)
         {
@@ -35,7 +35,7 @@ namespace BensGreatAdventure
 
         public string GetDisplayName()
         {
-            return "Knockback";
+            return "Bomb";
         }
     }
 }

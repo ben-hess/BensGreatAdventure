@@ -15,7 +15,7 @@ namespace BensGreatAdventure
 
             Renderer renderer = new Renderer(Console.WindowWidth - 2, Console.WindowHeight);
             Scene scene = new Scene(renderer);
-            scene.controllers.Add('*', new Knockback());
+            scene.controllers.Add('*', new Bomb());
             scene.controllers.Add('#', new Wall());
             scene.controllers.Add('X', new Effect());
             scene.controllers.Add('O', new Bolder());

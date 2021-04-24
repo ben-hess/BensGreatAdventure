@@ -47,7 +47,7 @@
     <Compile Include="Effect.cs" />
     <Compile Include="HealthItem.cs" />
     <Compile Include="ITileController.cs" />
-    <Compile Include="Knockback.cs" />
+    <Compile Include="Bomb.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="PlayerDirection.cs" />
     <Compile Include="Program.cs" />
