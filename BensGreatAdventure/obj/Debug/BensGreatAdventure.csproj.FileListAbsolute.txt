@@ -1,7 +1,0 @@
-C:\Users\benhe\source\repos\BensGreatAdventure\BensGreatAdventure\bin\Debug\BensGreatAdventure.exe.config
-C:\Users\benhe\source\repos\BensGreatAdventure\BensGreatAdventure\bin\Debug\BensGreatAdventure.exe
-C:\Users\benhe\source\repos\BensGreatAdventure\BensGreatAdventure\bin\Debug\BensGreatAdventure.pdb
-C:\Users\benhe\source\repos\BensGreatAdventure\BensGreatAdventure\obj\Debug\BensGreatAdventure.csprojAssemblyReference.cache
-C:\Users\benhe\source\repos\BensGreatAdventure\BensGreatAdventure\obj\Debug\BensGreatAdventure.csproj.CoreCompileInputs.cache
-C:\Users\benhe\source\repos\BensGreatAdventure\BensGreatAdventure\obj\Debug\BensGreatAdventure.exe
-C:\Users\benhe\source\repos\BensGreatAdventure\BensGreatAdventure\obj\Debug\BensGreatAdventure.pdb

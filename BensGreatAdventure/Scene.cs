@@ -30,7 +30,7 @@ namespace BensGreatAdventure
             hp = 10;
             controllers = new Dictionary<char, ITileController>();
             caption = "Use the arrow keys to move...";
-            map = new Map(renderer.width, renderer.height - 2);
+            map = new Map(renderer.width, renderer.height - 3);
             map.Square(5, 5, 20, 10, '#');
             map.SetTile(20, 10, '*');
             map.SetTile(15, 11, 'O');
