@@ -22,15 +22,24 @@ namespace BensGreatAdventure
 
         public Map map { get; private set; }
 
+        int cameraX;
+        int cameraY;
+
         public Scene(Renderer renderer)
         {
             this.renderer = renderer;
+
             playerX = 10;
             playerY = 10;
             hp = 10;
+
             controllers = new Dictionary<char, ITileController>();
             caption = "Use the arrow keys to move...";
-            map = new Map(renderer.width, renderer.height - 3);
+
+            cameraX = 0;
+            cameraY = 0;
+
+            map = new Map(100, 50);
             map.Square(5, 5, 20, 10, '#');
             map.SetTile(20, 10, '*');
             map.SetTile(15, 11, 'O');
@@ -59,6 +68,27 @@ namespace BensGreatAdventure
                 {
                     controllers[tile].OnUpdate(x, y, tile, this, isInteraction);
                 }
+            }
+        }
+
+        void AdjustCamera()
+        {
+            if(map.width > renderer.width)
+            {
+                cameraX = Utils.MinMax(playerX - renderer.width / 2, 0, map.width - renderer.width);
+            }
+            else
+            {
+                cameraX = 0;
+            }
+
+            if(map.height > renderer.height)
+            {
+                cameraY = Utils.MinMax(playerY - (renderer.height - 3) / 2, 0, map.height - (renderer.height - 3));
+            }
+            else
+            {
+                cameraY = 0;
             }
         }
 
@@ -108,6 +138,8 @@ namespace BensGreatAdventure
             playerX = nextX;
             playerY = nextY;
 
+            AdjustCamera();
+
             renderer.Clear();
             renderer.PutString(0, 0, caption);
             
@@ -129,11 +161,11 @@ namespace BensGreatAdventure
                 "  S: " + GetTileDisplayName(playerX, playerY + 1) +
                 "  W: " + GetTileDisplayName(playerX - 1, playerY));
 
-            for (int y = 0; y < map.height; y++)
+            for (int y = 0; y < renderer.height - 3; y++)
             {
-                for (int x = 0; x < map.width; x++)
+                for (int x = 0; x < renderer.width; x++)
                 {
-                    renderer.PutCh(x, y + 2, map.GetTile(x, y));
+                    renderer.PutCh(x, y + 2, map.GetTile(cameraX + x, cameraY + y));
                 }
             }
 

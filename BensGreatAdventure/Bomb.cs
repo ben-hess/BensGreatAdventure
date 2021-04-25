@@ -8,20 +8,14 @@ namespace BensGreatAdventure
 {
     public class Bomb : ITileController
     {
-        int Sign(int n)
-        {
-            if (n == 0) return 0;
-            return n < 0 ? -1 : 1;
-        }
-
         public void OnUpdate(int x, int y, char ch, Scene scene, bool isInteraction)
         {
             if (isInteraction || (Math.Abs(x - scene.playerX) + Math.Abs(y - scene.playerY) == 1))
             {
                 if(Math.Abs(x - scene.playerX) + Math.Abs(y - scene.playerY) <= 2)
                 {
-                    scene.playerX += Sign(scene.playerX - x);
-                    scene.playerY += Sign(scene.playerY - y);
+                    scene.playerX += Utils.Sign(scene.playerX - x);
+                    scene.playerY += Utils.Sign(scene.playerY - y);
                     scene.hp -= 2;
                 }
                 scene.map.SetTile(x, y, 'X');

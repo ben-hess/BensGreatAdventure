@@ -13,18 +13,12 @@ namespace BensGreatAdventure
             return "Bolder";
         }
 
-        int Sign(int n)
-        {
-            if (n == 0) return 0;
-            return n < 0 ? -1 : 1;
-        }
-
         public void OnUpdate(int x, int y, char ch, Scene scene, bool isInteraction)
         {
             if (isInteraction)
             {
-                int nextX = x + Sign(x - scene.playerX);
-                int nextY = y + Sign(y - scene.playerY);
+                int nextX = x + Utils.Sign(x - scene.playerX);
+                int nextY = y + Utils.Sign(y - scene.playerY);
 
                 scene.caption = "You pushed the bolder.";
                 scene.UpdateTile(nextX, nextY, true);
