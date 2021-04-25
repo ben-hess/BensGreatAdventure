@@ -193,9 +193,9 @@ namespace BensGreatAdventure
                     symbolsList.Add(controller.Key.ToString() + " = " + displayName);
                 }
             }
-            renderer.PutCenterString(8, string.Join("\n", symbolsList));
+            renderer.PutCenterString(7, string.Join("\n", symbolsList));
 
-            renderer.PutCenterString(symbolsList.Count + 10, "[ Press any key to play... ]");
+            renderer.PutCenterString(symbolsList.Count + 9, "[ Press any key to play... ]");
             renderer.Render();
         }
     }
