@@ -43,19 +43,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bolder.cs" />
-    <Compile Include="Effect.cs" />
-    <Compile Include="HealthItem.cs" />
-    <Compile Include="ITileController.cs" />
-    <Compile Include="Bomb.cs" />
+    <Compile Include="Tiles\Bolder.cs" />
+    <Compile Include="Tiles\Effect.cs" />
+    <Compile Include="Tiles\HealthItem.cs" />
+    <Compile Include="Tiles\ITile.cs" />
+    <Compile Include="Tiles\Bomb.cs" />
     <Compile Include="Map.cs" />
-    <Compile Include="PlayerDirection.cs" />
+    <Compile Include="MovementDirection.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Renderer.cs" />
     <Compile Include="Scene.cs" />
     <Compile Include="Utils.cs" />
-    <Compile Include="Wall.cs" />
+    <Compile Include="Tiles\Wall.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

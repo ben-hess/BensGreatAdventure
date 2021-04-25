@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BensGreatAdventure
 {
-    public enum PlayerDirection
+    public enum MovementDirection
     {
         None,
         Up,

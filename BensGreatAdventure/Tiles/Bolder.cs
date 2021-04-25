@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BensGreatAdventure
+namespace BensGreatAdventure.Tiles
 {
-    public class Bolder : ITileController
+    public class Bolder : ITile
     {
         public string GetDisplayName()
         {
@@ -17,8 +17,8 @@ namespace BensGreatAdventure
         {
             if (isInteraction)
             {
-                int nextX = x + Utils.Sign(x - scene.playerX);
-                int nextY = y + Utils.Sign(y - scene.playerY);
+                int nextX = x + Utils.Sign(x - scene.map.playerX);
+                int nextY = y + Utils.Sign(y - scene.map.playerY);
 
                 scene.caption = "You pushed the bolder.";
                 scene.UpdateTile(nextX, nextY, true);

@@ -3,50 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BensGreatAdventure.Tiles;
 
 namespace BensGreatAdventure
 {
     public class Scene
     {
-        public PlayerDirection direction { get; private set; }
-
         public Renderer renderer { get; private set; }
+        public Map map { get; set; }
 
-        public int playerX { get; set; }
-        public int playerY { get; set; }
-        public int hp { get; set; }
+        public int playerHP { get; set; }
 
-        public Dictionary<char, ITileController> controllers { get; private set; }
+        public Dictionary<char, ITile> controllers { get; private set; }
 
         public string caption { get; set; }
-
-        public Map map { get; private set; }
 
         int cameraX;
         int cameraY;
 
-        public Scene(Renderer renderer)
+        public Scene(Renderer renderer, Map map)
         {
             this.renderer = renderer;
+            this.map = map;
 
-            playerX = 10;
-            playerY = 10;
-            hp = 10;
+            playerHP = 10;
 
-            controllers = new Dictionary<char, ITileController>();
+            controllers = new Dictionary<char, ITile>();
             caption = "Use the arrow keys to move...";
 
             cameraX = 0;
             cameraY = 0;
-
-            map = new Map(100, 50);
-            map.Square(5, 5, 20, 10, '#');
-            map.SetTile(20, 10, '*');
-            map.SetTile(15, 11, 'O');
-            map.SetTile(15, 6, '*');
-            map.SetTile(30, 16, 'O');
-            map.SetTile(35, 16, '+');
-            map.SetTile(15, 25, '+');
         }
 
         public string GetTileDisplayName(int x, int y)
@@ -75,7 +61,7 @@ namespace BensGreatAdventure
         {
             if(map.width > renderer.width)
             {
-                cameraX = Utils.MinMax(playerX - renderer.width / 2, 0, map.width - renderer.width);
+                cameraX = Utils.MinMax(map.playerX - renderer.width / 2, 0, map.width - renderer.width);
             }
             else
             {
@@ -84,7 +70,7 @@ namespace BensGreatAdventure
 
             if(map.height > renderer.height)
             {
-                cameraY = Utils.MinMax(playerY - (renderer.height - 3) / 2, 0, map.height - (renderer.height - 3));
+                cameraY = Utils.MinMax(map.playerY - (renderer.height - 3) / 2, 0, map.height - (renderer.height - 3));
             }
             else
             {
@@ -92,28 +78,28 @@ namespace BensGreatAdventure
             }
         }
 
-        public void Update(PlayerDirection direction)
+        public void Update(MovementDirection direction)
         {
-            int nextX = playerX;
-            int nextY = playerY;
+            int nextX = map.playerX;
+            int nextY = map.playerY;
 
             switch (direction)
             {
-                case PlayerDirection.Up: nextY--; break;
-                case PlayerDirection.Down: nextY++; break;
-                case PlayerDirection.Right: nextX++; break;
-                case PlayerDirection.Left: nextX--; break;
+                case MovementDirection.Up: nextY--; break;
+                case MovementDirection.Down: nextY++; break;
+                case MovementDirection.Right: nextX++; break;
+                case MovementDirection.Left: nextX--; break;
             }
 
             if(nextX < 0 || nextY < 0 || nextX >= map.width || nextY >= map.height)
             {
-                nextX = playerX;
-                nextY = playerY;
+                nextX = map.playerX;
+                nextY = map.playerY;
             }
 
-            int oldX = playerX;
-            int oldY = playerY;
-            int oldHp = hp;
+            int oldX = map.playerX;
+            int oldY = map.playerY;
+            int oldHp = playerHP;
 
             for (int y = 0; y < map.height; y++)
             {
@@ -123,10 +109,10 @@ namespace BensGreatAdventure
                 }
             }
 
-            if (playerX != oldX || playerY != oldY || map.GetTile(nextX, nextY) != ' ')
+            if (map.playerX != oldX || map.playerY != oldY || map.GetTile(nextX, nextY) != ' ')
             {
-                nextX = playerX;
-                nextY = playerY;
+                nextX = map.playerX;
+                nextY = map.playerY;
             }
 
             if(map.GetTile(oldX, oldY) == '@')
@@ -135,8 +121,8 @@ namespace BensGreatAdventure
             }
             map.SetTile(nextX, nextY, '@');
 
-            playerX = nextX;
-            playerY = nextY;
+            map.playerX = nextX;
+            map.playerY = nextY;
 
             AdjustCamera();
 
@@ -144,22 +130,22 @@ namespace BensGreatAdventure
             renderer.PutString(0, 0, caption);
             
             renderer.PutString(0, 1, "HP[");
-            for(int i = 0; i < hp; i++)
+            for(int i = 0; i < playerHP; i++)
             {
                 renderer.PutCh(3 + i, 1, '♥');
             }
             renderer.PutCh(13, 1, ']');
 
-            if(hp != oldHp)
+            if(playerHP != oldHp)
             {
-                renderer.PutString(15, 1, (hp > oldHp ? "+" : "") + (hp - oldHp).ToString());
+                renderer.PutString(15, 1, (playerHP > oldHp ? "+" : "") + (playerHP - oldHp).ToString());
             }
 
-            renderer.PutString(0, renderer.height - 1, "X: " + playerX + " Y: " + playerY);
-            renderer.PutString(15, renderer.height - 1, "N: " + GetTileDisplayName(playerX, playerY - 1) +
-                "  E: " + GetTileDisplayName(playerX + 1, playerY) +
-                "  S: " + GetTileDisplayName(playerX, playerY + 1) +
-                "  W: " + GetTileDisplayName(playerX - 1, playerY));
+            renderer.PutString(0, renderer.height - 1, "X: " + map.playerX + " Y: " + map.playerY);
+            renderer.PutString(15, renderer.height - 1, "N: " + GetTileDisplayName(map.playerX, map.playerY - 1) +
+                "  E: " + GetTileDisplayName(map.playerX + 1, map.playerY) +
+                "  S: " + GetTileDisplayName(map.playerX, map.playerY + 1) +
+                "  W: " + GetTileDisplayName(map.playerX - 1, map.playerY));
 
             for (int y = 0; y < renderer.height - 3; y++)
             {
@@ -185,7 +171,7 @@ namespace BensGreatAdventure
 
             List<string> symbolsList = new List<string>();
             symbolsList.Add("@ = Player");
-            foreach(KeyValuePair<char, ITileController> controller in controllers)
+            foreach(KeyValuePair<char, ITile> controller in controllers)
             {
                 string displayName = controller.Value.GetDisplayName();
                 if (displayName.Length > 0)

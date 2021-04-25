@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BensGreatAdventure
+namespace BensGreatAdventure.Tiles
 {
-    public class Effect : ITileController
+    public class Effect : ITile
     {
         public string GetDisplayName()
         {

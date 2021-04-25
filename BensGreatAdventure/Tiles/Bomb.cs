@@ -4,19 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BensGreatAdventure
+namespace BensGreatAdventure.Tiles
 {
-    public class Bomb : ITileController
+    public class Bomb : ITile
     {
         public void OnUpdate(int x, int y, char ch, Scene scene, bool isInteraction)
         {
-            if (isInteraction || (Math.Abs(x - scene.playerX) + Math.Abs(y - scene.playerY) == 1))
+            if (isInteraction || (Math.Abs(x - scene.map.playerX) + Math.Abs(y - scene.map.playerY) == 1))
             {
-                if(Math.Abs(x - scene.playerX) + Math.Abs(y - scene.playerY) <= 2)
+                if(Math.Abs(x - scene.map.playerX) + Math.Abs(y - scene.map.playerY) <= 2)
                 {
-                    scene.playerX += Utils.Sign(scene.playerX - x);
-                    scene.playerY += Utils.Sign(scene.playerY - y);
-                    scene.hp -= 2;
+                    scene.map.playerX += Utils.Sign(scene.map.playerX - x);
+                    scene.map.playerY += Utils.Sign(scene.map.playerY - y);
+                    scene.playerHP -= 2;
                 }
                 scene.map.SetTile(x, y, 'X');
                 scene.map.SetTile(x + 1, y, 'X');

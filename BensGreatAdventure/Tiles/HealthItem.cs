@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BensGreatAdventure
+namespace BensGreatAdventure.Tiles
 {
-    public class HealthItem : ITileController
+    public class HealthItem : ITile
     {
         public string GetDisplayName()
         {
@@ -17,7 +17,7 @@ namespace BensGreatAdventure
         {
             if (isInteraction)
             {
-                scene.hp++;
+                scene.playerHP++;
                 scene.map.SetTile(x, y, ' ');
                 scene.caption = "You used a health item.";
             }

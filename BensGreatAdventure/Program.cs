@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BensGreatAdventure.Tiles;
 
 namespace BensGreatAdventure
 {
@@ -14,7 +15,8 @@ namespace BensGreatAdventure
             Console.Clear();
 
             Renderer renderer = new Renderer(Console.WindowWidth - 2, Console.WindowHeight);
-            Scene scene = new Scene(renderer);
+            Map map = new Map(100, 50, 5, 5);
+            Scene scene = new Scene(renderer, map);
             scene.controllers.Add('*', new Bomb());
             scene.controllers.Add('#', new Wall());
             scene.controllers.Add('X', new Effect());
@@ -24,18 +26,18 @@ namespace BensGreatAdventure
             scene.RenderMenu();
             Console.ReadKey(true);
 
-            PlayerDirection direction = PlayerDirection.None;
+            MovementDirection direction = MovementDirection.None;
             while (true)
             {
                 scene.Update(direction);
                 ConsoleKeyInfo info = Console.ReadKey(true);
-                direction = PlayerDirection.None;
+                direction = MovementDirection.None;
                 switch (info.Key)
                 {
-                    case ConsoleKey.UpArrow: direction = PlayerDirection.Up; break;
-                    case ConsoleKey.DownArrow: direction = PlayerDirection.Down; break;
-                    case ConsoleKey.LeftArrow: direction = PlayerDirection.Left; break;
-                    case ConsoleKey.RightArrow: direction = PlayerDirection.Right; break;
+                    case ConsoleKey.UpArrow: direction = MovementDirection.Up; break;
+                    case ConsoleKey.DownArrow: direction = MovementDirection.Down; break;
+                    case ConsoleKey.LeftArrow: direction = MovementDirection.Left; break;
+                    case ConsoleKey.RightArrow: direction = MovementDirection.Right; break;
                 }
             }
         }

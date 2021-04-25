@@ -11,13 +11,18 @@ namespace BensGreatAdventure
         public int width { get; private set; }
         public int height { get; private set; }
 
+        public int playerX { get; set; }
+        public int playerY { get; set; }
+
         char[,] oldTiles;
         char[,] tiles;
 
-        public Map(int width, int height)
+        public Map(int width, int height, int playerX, int playerY)
         {
             this.width = width;
             this.height = height;
+            this.playerX = playerX;
+            this.playerY = playerY;
             tiles = new char[width, height];
             oldTiles = new char[width, height];
             for (int y = 0; y < height; y++)
@@ -70,25 +75,6 @@ namespace BensGreatAdventure
                 return true;
             }
             return false;
-        }
-
-        public void FillTiles(int x, int y, int w, int h, char ch)
-        {
-            for (int i = 0; i < h; i++)
-            {
-                for (int j = 0; j < w; j++)
-                {
-                    SetTile(x + j, y + i, ch);
-                }
-            }
-        }
-
-        public void Square(int x, int y, int w, int h, char ch)
-        {
-            FillTiles(x, y, w, 1, ch);
-            FillTiles(x, y + h - 1, w, 1, ch);
-            FillTiles(x, y + 1, 1, h - 2, ch);
-            FillTiles(x + w - 1, y + 1, 1, h - 2, ch);
         }
 
         public void Update()

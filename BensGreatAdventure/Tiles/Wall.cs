@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BensGreatAdventure
+namespace BensGreatAdventure.Tiles
 {
-    class Wall : ITileController
+    class Wall : ITile
     {
         public string GetDisplayName()
         {
